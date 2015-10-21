@@ -1134,6 +1134,26 @@ function Filter(operation, filter) {
 }
 
 /**
+ * SmsSend Action.
+ * @constructor
+ * @see Action(String)
+ * @see See <a href="https://wiki.asterisk.org/wiki/display/AST/ManagerAction_QueueStatus">https://wiki.asterisk.org/wiki/display/AST/ManagerAction_QueueStatus</a>.
+ * @property {String} Queue Optional, Queue
+ * @property {String} Member Optional, Member
+ * @augments Action
+ */
+function KSendSMS(device, destination, message) {
+	KSendSMS.super_.call(this, 'KSendSMS');
+
+	this.set('device',device);
+	this.set('destination',destination);
+	this.set('message',message);
+	this.set('Confirmation',true);
+	this.set('Linefeed',true);
+
+}
+
+/**
  *
  * @param mask
  * @constructor
