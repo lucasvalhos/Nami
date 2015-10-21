@@ -1134,12 +1134,23 @@ function Filter(operation, filter) {
 }
 
 /**
+ *
+ * @param mask
+ * @constructor
+ * @see See https://wiki.asterisk.org/wiki/display/AST/Asterisk+11+ManagerAction_Events
+ */
+function Events(mask) {
+	Events.super_.call(this, 'Events');
+	this.set('Eventmask', mask);
+}
+
+/**
  * SmsSend Action.
  * @constructor
  * @see Action(String)
- * @see See <a href="https://wiki.asterisk.org/wiki/display/AST/ManagerAction_QueueStatus">https://wiki.asterisk.org/wiki/display/AST/ManagerAction_QueueStatus</a>.
- * @property {String} Queue Optional, Queue
- * @property {String} Member Optional, Member
+ * @property {String} device. Device.
+ * @property {String} destination. Destination.
+ * @property {String} message. Message.
  * @augments Action
  */
 function KSendSMS(device, destination, message) {
@@ -1151,17 +1162,6 @@ function KSendSMS(device, destination, message) {
 	this.set('Confirmation',true);
 	this.set('Linefeed',true);
 
-}
-
-/**
- *
- * @param mask
- * @constructor
- * @see See https://wiki.asterisk.org/wiki/display/AST/Asterisk+11+ManagerAction_Events
- */
-function Events(mask) {
-	Events.super_.call(this, 'Events');
-	this.set('Eventmask', mask);
 }
 
 // Inheritance for this module
@@ -1249,7 +1249,9 @@ util.inherits(Action, message.Message);
         AGI,
         BlindTransfer,
         Filter,
-        Events
+        Events,
+        // Start Khomp Actions
+        KSendSMS
     ];
     for (i in actions) {
         util.inherits(actions[i], Action);
